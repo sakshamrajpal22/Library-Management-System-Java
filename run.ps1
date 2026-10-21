@@ -14,7 +14,7 @@ if (-not $conn.TcpTestSucceeded) {
 Write-Host "[2/3] Checking compiled classes..." -ForegroundColor Cyan
 if (-not (Test-Path "bin\LibraryFrontend.class")) {
     if (-not (Test-Path "bin")) { New-Item -ItemType Directory -Path "bin" | Out-Null }
-    & "C:\Program Files\Android\Android Studio\jbr\bin\javac.exe" -d bin -cp ".;mysql-connector-j-8.3.0.jar" LibraryBackend.java LibraryFrontend.java
+    & "C:\Program Files\Android\Android Studio\jbr\bin\javac.exe" -d bin -cp ".;mysql-connector-j-8.3.0.jar" LibraryBackend.java LibraryFrontend.java LibraryLogoPanel.java
 }
 
 Write-Host "[3/3] Launching Library Management System..." -ForegroundColor Green

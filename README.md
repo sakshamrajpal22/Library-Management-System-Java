@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS BookTransactions (
 
 ### 1. Compile the Source Code
 ```powershell
-javac -d bin -cp ".;mysql-connector-j-8.3.0.jar" LibraryBackend.java LibraryFrontend.java
+javac -d bin -cp ".;mysql-connector-j-8.3.0.jar" LibraryBackend.java LibraryFrontend.java LibraryLogoPanel.java
 ```
 
 ### 2. Launch the Application
@@ -143,3 +143,5 @@ java -cp "bin;mysql-connector-j-8.3.0.jar" LibraryFrontend
   *A:* By setting `conn.setAutoCommit(false)`, the multiple SQL statements (decrementing copies in `Books` and inserting into `BookTransactions`) execute as a single atomic unit. If any step fails, `conn.rollback()` restores the database state, preventing inconsistent records.
 - **Q: How does the sidebar navigation switch screens without external libraries?**
   *A:* It uses Java Swing's built-in `CardLayout` manager. Each view is registered as a card (`"DASHBOARD"`, `"BOOKS"`, `"MEMBERS"`, `"TRANSACTIONS"`), and clicking a sidebar button triggers `cardLayout.show(cardsPanel, cardName)`.
+- **Q: How is the custom Library Logo implemented without external image files or third-party libraries?**
+  *A:* It is implemented in `LibraryLogoPanel.java` by extending `JPanel` and overriding `paintComponent(Graphics g)`. We cast `Graphics` to `Graphics2D`, enable vector anti-aliasing (`KEY_ANTIALIASING`), and render geometric shapes (`fillRoundRect`, `fillPolygon`, `drawPolygon`, and `drawLine`). Coordinate math is dynamically scaled relative to component bounds (`getWidth()`, `getHeight()`), ensuring the open-book emblem remains centered, crisp, and responsive when resized.

@@ -40,6 +40,7 @@ public class LibraryFrontend extends JFrame {
     public static final Color COLOR_DANGER = new Color(192, 68, 68);          // #C04444 Destructive Red
     public static final Color COLOR_WARNING = new Color(217, 119, 6);         // #D97706 Amber
     public static final Color COLOR_INFO = new Color(14, 165, 233);           // #0EA5E9 Sky Blue
+    public static final Color COLOR_GOLD = new Color(233, 185, 91);           // #E9B95B Warm Gold Accent
 
     public static final Font FONT_TITLE = new Font("Segoe UI", Font.BOLD, 18);
     public static final Font FONT_SUBTITLE = new Font("Segoe UI", Font.PLAIN, 12);
@@ -142,33 +143,46 @@ public class LibraryFrontend extends JFrame {
      */
     private JPanel createSidebarPanel() {
         JPanel sidebar = new JPanel(new BorderLayout());
-        sidebar.setPreferredSize(new Dimension(240, 0));
+        sidebar.setPreferredSize(new Dimension(265, 0));
         sidebar.setBackground(COLOR_SIDEBAR);
 
         // Header / Brand section
-        JPanel brandPanel = new JPanel();
-        brandPanel.setLayout(new BoxLayout(brandPanel, BoxLayout.Y_AXIS));
+        JPanel brandPanel = new JPanel(new BorderLayout(0, 8));
         brandPanel.setBackground(COLOR_SIDEBAR);
-        brandPanel.setBorder(new EmptyBorder(25, 20, 20, 20));
+        brandPanel.setBorder(new EmptyBorder(22, 14, 18, 14));
+
+        // Horizontal brand header: Custom Library Logo placed beside LMS PORTAL branding
+        JPanel brandHeader = new JPanel(new BorderLayout(10, 0));
+        brandHeader.setBackground(COLOR_SIDEBAR);
+
+        // Custom Open Book Logo component (36x36)
+        LibraryLogoPanel logoPanel = new LibraryLogoPanel(36);
+        brandHeader.add(logoPanel, BorderLayout.WEST);
+
+        // Text branding container (LMS PORTAL + Viksit Bharat@2047 Edition)
+        JPanel brandTextPanel = new JPanel(new GridLayout(2, 1, 0, 2));
+        brandTextPanel.setBackground(COLOR_SIDEBAR);
 
         JLabel brandIcon = new JLabel("LMS PORTAL");
-        brandIcon.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        brandIcon.setFont(new Font("Segoe UI", Font.BOLD, 17));
         brandIcon.setForeground(Color.WHITE);
 
         JLabel brandSub = new JLabel("Viksit Bharat@2047 Edition");
         brandSub.setFont(new Font("Segoe UI", Font.PLAIN, 11));
         brandSub.setForeground(new Color(180, 195, 215));
 
+        brandTextPanel.add(brandIcon);
+        brandTextPanel.add(brandSub);
+
+        brandHeader.add(brandTextPanel, BorderLayout.CENTER);
+
         JLabel userBadge = new JLabel("Logged in: " + LibraryBackend.ADMIN_USER);
         userBadge.setFont(new Font("Segoe UI", Font.ITALIC, 11));
         userBadge.setForeground(new Color(210, 225, 245));
-        userBadge.setBorder(new EmptyBorder(6, 0, 0, 0));
+        userBadge.setBorder(new EmptyBorder(0, 2, 0, 0));
 
-        brandPanel.add(brandIcon);
-        brandPanel.add(Box.createVerticalStrut(4));
-        brandPanel.add(brandSub);
-        brandPanel.add(Box.createVerticalStrut(2));
-        brandPanel.add(userBadge);
+        brandPanel.add(brandHeader, BorderLayout.CENTER);
+        brandPanel.add(userBadge, BorderLayout.SOUTH);
 
         sidebar.add(brandPanel, BorderLayout.NORTH);
 
@@ -2226,16 +2240,22 @@ public class LibraryFrontend extends JFrame {
 
         public LoginFrame() {
             setTitle("LMS Administrative Login - Viksit Bharat@2047");
-            setSize(450, 350);
+            setSize(480, 350);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setResizable(false);
             setLayout(new BorderLayout());
 
-            // Header Banner
-            JPanel header = new JPanel(new BorderLayout());
+            // Header Banner with Logo
+            JPanel header = new JPanel(new BorderLayout(14, 0));
             header.setBackground(COLOR_SIDEBAR);
-            header.setBorder(new EmptyBorder(18, 22, 18, 22));
+            header.setBorder(new EmptyBorder(16, 22, 16, 22));
+
+            LibraryLogoPanel loginLogo = new LibraryLogoPanel(42);
+            header.add(loginLogo, BorderLayout.WEST);
+
+            JPanel titleCol = new JPanel(new GridLayout(2, 1, 0, 2));
+            titleCol.setOpaque(false);
 
             JLabel title = new JLabel("Library Management System");
             title.setFont(new Font("Segoe UI", Font.BOLD, 17));
@@ -2245,8 +2265,10 @@ public class LibraryFrontend extends JFrame {
             subtitle.setFont(new Font("Segoe UI", Font.PLAIN, 12));
             subtitle.setForeground(new Color(203, 213, 225));
 
-            header.add(title, BorderLayout.NORTH);
-            header.add(subtitle, BorderLayout.SOUTH);
+            titleCol.add(title);
+            titleCol.add(subtitle);
+
+            header.add(titleCol, BorderLayout.CENTER);
             add(header, BorderLayout.NORTH);
 
             // Form Fields Center Panel

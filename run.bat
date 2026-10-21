@@ -14,7 +14,7 @@ if %ERRORLEVEL% neq 0 (
 
 echo [2/3] Compiling Java classes...
 if not exist "bin" mkdir bin
-"C:\Program Files\Android\Android Studio\jbr\bin\javac.exe" -d bin -cp ".;mysql-connector-j-8.3.0.jar" LibraryBackend.java LibraryFrontend.java
+"C:\Program Files\Android\Android Studio\jbr\bin\javac.exe" -d bin -cp ".;mysql-connector-j-8.3.0.jar" LibraryBackend.java LibraryFrontend.java LibraryLogoPanel.java
 
 echo [3/3] Launching Library Management System...
 start "" "C:\Program Files\Android\Android Studio\jbr\bin\javaw.exe" -cp "bin;mysql-connector-j-8.3.0.jar" LibraryFrontend
